@@ -7,12 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
 
 class CategoryFragment : Fragment(), View.OnClickListener {
 
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_category, container, false)
     }
@@ -41,10 +44,18 @@ class CategoryFragment : Fragment(), View.OnClickListener {
             jika sudah tidak ada fragment di dalam backstack maka activity yang akan di close / finish
              */
             val fragmentManager = parentFragmentManager
-            fragmentManager.beginTransaction().apply {
-                replace(R.id.frame_container, detailCategoryFragment, DetailCategoryFragment::class.java.simpleName)
+//            fragmentManager.beginTransaction().apply {
+//                replace(R.id.frame_container, detailCategoryFragment, DetailCategoryFragment::class.java.simpleName)
+//                addToBackStack(null)
+//                commit()
+//            }
+            fragmentManager.commit {
                 addToBackStack(null)
-                commit()
+                replace(
+                    R.id.frame_container,
+                    detailCategoryFragment,
+                    DetailCategoryFragment::class.java.simpleName
+                )
             }
         }
     }
